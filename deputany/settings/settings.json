@@ -1,0 +1,10 @@
+{
+  "bot": {
+    "token": "deadbeaf"
+  },
+  "duma": {
+    "url": "http://api.duma.gov.ru/api",
+    "own_key": "deadbeaf",
+    "app_key": "deadbeaf"
+  }
+}
