@@ -27,6 +27,11 @@ Installation
 Make distribution package copy it into raspberry and run pip install, for example
 
 ```shell
-$ pip install 'Deputany bot-1.0.0.tar.gz'
+pip install 'Deputany bot-1.0.0.tar.gz'
 ```
 
+Running
+-------
+```shell
+deputany-bot --settings /path/to/your/settings.json
+```
