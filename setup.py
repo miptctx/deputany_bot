@@ -7,9 +7,9 @@ setup(
   author='Illia Rohozhkin',
   author_email='illia.rogozhkin@gmail.com',
   url='https://github.com/systemmind/deputany_bot',
-  install_requires=['aiogram==2.23.1'],
+  install_requires=['aiogram==2.23.1', 'requests-2.28.1'],
   packages=[
-    'deputany', 'deputany.settings'
+    'deputany', 'deputany.bot', 'deputany.settings'
   ],
   package_data={'deputany': ['cfg/logging.conf']},
   scripts=['deputany/deputany-bot']

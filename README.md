@@ -7,7 +7,6 @@ Prepare environmenent
 ```shell
 $ python3 -m venv env
 $ source env/bin/activate
-(env) $ pip install -r requirements.txt
 ```
 
 
@@ -28,6 +27,6 @@ Installation
 Make distribution package copy it into raspberry and run pip install, for example
 
 ```shell
-$ pip install deputany-1.0.0.tar.gz
+$ pip install 'Deputany bot-1.0.0.tar.gz'
 ```
 

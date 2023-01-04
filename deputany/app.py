@@ -1,8 +1,9 @@
 import asyncio
 import requests
 from deputany.logger import logger
-from deputany.bot import bot
+from deputany.bot.bot import bot
 from deputany.utils import duma_req_url
+from deputany.strings import *
 
 
 class Application:
@@ -17,29 +18,32 @@ class Application:
   async def exec(self):
     try:
       self.dispatcher = bot(self)
-      await self.dispatcher.start_polling()
+      await self.dispatcher.start_polling(timeout=5, error_sleep=1)
     except asyncio.CancelledError as error:
       pass
     except BaseException as error:
       self.exitCode = -1
       logger.error(error)
     finally:
-      logger.debug('application finished, exit')
+      logger.info('application finished, exit')
 
   async def cleanup(self):
-    logger.debug("app cleaning up")
+    logger.info("app cleaning up")
 
     if self.dispatcher:
-      logger.debug("bot task cancelling")
+      logger.info("bot task cancelling")
       self.dispatcher.stop_polling()
       await self.dispatcher.wait_closed()
-      logger.debug("bot finished")
+      logger.info("bot finished")
 
-  async def handleMessage(self, message):
-    r = requests.get(url=duma_req_url({str_name: message.text}))
-    resp = r.json()
-    answer = 'Законопроекты под данному запросу не найдены'
-    if resp[str_count]:
-      answer = "\n\n".join([f"/{obj[str_id]}: {obj[str_name]}" for obj in resp[str_laws]])
+  async def handleLaws(self, message, **kwargs):
+    url = duma_req_url('search.json', name=message, limit=10, **kwargs)
+    logger.info(f"request {url}")
+    r = requests.get(url=url)
+    return r.json()
 
-    message.answer(resp)
+  async def handleVotes(self, message, **kwargs):
+    url = duma_req_url('voteSearch.json', number=message, limit=10, **kwargs)
+    logger.info(f"request {url}")
+    r = requests.get(url=url)
+    return r.json()
